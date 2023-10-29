@@ -2,16 +2,17 @@ import 'package:chat_messenger/components/my_button.dart';
 import 'package:chat_messenger/components/my_text_filed.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,10 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 25,
               ),
+              MyTextField(controller: confirmPasswordController, hintText: "Confirm password", obscureText: true),
+              const SizedBox(
+                height: 25,
+              ),
               MyButton(
                 text: "Sign In",
                 onTap: () {},
@@ -60,13 +65,13 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Don't have an account? ",
+                    "Already a member?",
                     style: TextStyle(fontSize: 16),
                   ),
                   InkWell(
                     onTap: () {},
                     child: const Text(
-                      "Sign Up",
+                      "Login now",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
