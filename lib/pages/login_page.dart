@@ -1,3 +1,4 @@
+import 'package:chat_messenger/components/my_button.dart';
 import 'package:chat_messenger/components/my_text_filed.dart';
 import 'package:flutter/material.dart';
 
@@ -45,6 +46,32 @@ class _LoginPageState extends State<LoginPage> {
                 height: 13,
               ),
               MyTextField(controller: passwordController, hintText: "Password", obscureText: true),
+              SizedBox(
+                height: 25,
+              ),
+              MyButton(
+                text: "Sign In",
+                onTap: () {},
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account? ",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
