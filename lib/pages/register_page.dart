@@ -3,7 +3,9 @@ import 'package:chat_messenger/components/my_text_filed.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final void Function()? onTap;
+
+  const RegisterPage({super.key, required this.onTap});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -13,6 +15,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  void signUp() {}
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               MyButton(
                 text: "Sign In",
-                onTap: () {},
+                onTap: signUp,
               ),
               const SizedBox(
                 height: 50,
@@ -68,8 +72,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     "Already a member?",
                     style: TextStyle(fontSize: 16),
                   ),
-                  InkWell(
-                    onTap: () {},
+                  GestureDetector(
+                    onTap: widget.onTap,
                     child: const Text(
                       "Login now",
                       style: TextStyle(fontWeight: FontWeight.bold),
