@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
 
-  const RegisterPage({super.key, required this.onTap});
+  const RegisterPage({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -69,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Already a member?",
+                    "Already a member? ",
                     style: TextStyle(fontSize: 16),
                   ),
                   GestureDetector(
