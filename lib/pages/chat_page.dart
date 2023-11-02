@@ -36,6 +36,9 @@ class _ChatPageState extends State<ChatPage> {
       body: Column(
         children: [
           Expanded(child: _buildMessageList()),
+          const SizedBox(
+            height: 25,
+          ),
           _buildMessageInput(),
         ],
       ),
@@ -74,6 +77,9 @@ class _ChatPageState extends State<ChatPage> {
           mainAxisAlignment: (data['senderId'] == _firebaseAuth.currentUser!.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
             Text(data['senderEmail']),
+            const SizedBox(
+              height: 5,
+            ),
             ChatBubble(message: data['message'])
           ],
         ),
@@ -82,13 +88,16 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildMessageInput() {
-    return Row(
-      children: [
-        Expanded(
-          child: MyTextField(controller: _messageController, hintText: 'Enter message', obscureText: false),
-        ),
-        IconButton(icon: const Icon(Icons.arrow_upward), onPressed: sendMessage)
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Row(
+        children: [
+          Expanded(
+            child: MyTextField(controller: _messageController, hintText: 'Enter message', obscureText: false),
+          ),
+          IconButton(icon: const Icon(Icons.arrow_upward), onPressed: sendMessage)
+        ],
+      ),
     );
   }
 }
