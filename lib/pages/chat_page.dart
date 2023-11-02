@@ -1,3 +1,4 @@
+import 'package:chat_messenger/components/chat_dubble.dart';
 import 'package:chat_messenger/components/my_text_filed.dart';
 import 'package:chat_messenger/services/chat/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -73,7 +74,7 @@ class _ChatPageState extends State<ChatPage> {
           mainAxisAlignment: (data['senderId'] == _firebaseAuth.currentUser!.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
             Text(data['senderEmail']),
-            Text(data['message']),
+            ChatBubble(message: data['message'])
           ],
         ),
       ),
