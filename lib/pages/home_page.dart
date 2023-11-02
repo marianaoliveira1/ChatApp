@@ -1,4 +1,4 @@
-import 'package:chat_messenger/pages/chat_apge.dart';
+import 'package:chat_messenger/pages/chat_page.dart';
 import 'package:chat_messenger/services/auth/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
