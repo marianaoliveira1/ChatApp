@@ -1,3 +1,4 @@
+import 'package:chat_messenger/pages/chat_apge.dart';
 import 'package:chat_messenger/services/auth/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildUserList(DocumentSnapshot document) {
+  Widget _buildUserList() {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, snapshot) {
@@ -45,8 +46,29 @@ class _HomePageState extends State<HomePage> {
             return const Text('loading');
           }
           return ListView(
-            children: [],
+            children: snapshot.data!.docs.map<Widget>((doc) => _buildUserListItem(doc)).toList(),
           );
         });
+  }
+
+  Widget _buildUserListItem(DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+    if (_auth.currentUser!.email != data['email']) {
+      return ListTile(
+        title: Text(data['email']),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChatPage(
+                        receiverUserEmail: data['email'],
+                        receiverUserID: data['uid'],
+                      )));
+        },
+      );
+    } else {
+      return Container();
+    }
   }
 }
