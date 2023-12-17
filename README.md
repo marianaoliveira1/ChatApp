@@ -1,16 +1,3 @@
-# chat_messenger
+# Chat 
+- Um aplicativo de chat construído com Flutter e Firebase, permitindo que os usuários se comuniquem através do email. Esta aplicação oferece uma experiência de chat em tempo real e utiliza o Firebase para autenticação
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

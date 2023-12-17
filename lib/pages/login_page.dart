@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:chat_messenger/components/my_button.dart';
 import 'package:chat_messenger/components/my_text_filed.dart';
 import 'package:chat_messenger/services/auth/auth_service.dart';
@@ -24,7 +26,8 @@ class _LoginPageState extends State<LoginPage> {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     try {
-      await authService.signInTiwhtEmailandPassword(emailController.text, passwordController.text);
+      await authService.signInTiwhtEmailandPassword(
+          emailController.text, passwordController.text);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -64,11 +67,17 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 22,
               ),
-              MyTextField(controller: emailController, hintText: "Email", obscureText: false),
+              MyTextField(
+                  controller: emailController,
+                  hintText: "Email",
+                  obscureText: false),
               const SizedBox(
                 height: 13,
               ),
-              MyTextField(controller: passwordController, hintText: "Password", obscureText: true),
+              MyTextField(
+                  controller: passwordController,
+                  hintText: "Password",
+                  obscureText: true),
               const SizedBox(
                 height: 25,
               ),

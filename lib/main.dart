@@ -1,8 +1,8 @@
 import 'package:chat_messenger/firebase_options.dart';
-import 'package:chat_messenger/pages/login_page.dart';
+
 import 'package:chat_messenger/services/auth/auth_gade.dart';
 import 'package:chat_messenger/services/auth/auth_service.dart';
-import 'package:chat_messenger/services/auth/login_or_register.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
