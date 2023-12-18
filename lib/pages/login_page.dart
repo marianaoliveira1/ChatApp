@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:chat_messenger/components/my_button.dart';
-import 'package:chat_messenger/components/my_text_filed.dart';
 import 'package:chat_messenger/services/auth/auth_service.dart';
+import 'package:chat_messenger/widgets/default_text_filed.dart';
+import 'package:chat_messenger/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,21 +67,21 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 22,
               ),
-              MyTextField(
+              DefaultTextField(
                   controller: emailController,
                   hintText: "Email",
                   obscureText: false),
               const SizedBox(
                 height: 13,
               ),
-              MyTextField(
+              DefaultTextField(
                   controller: passwordController,
                   hintText: "Password",
                   obscureText: true),
               const SizedBox(
                 height: 25,
               ),
-              MyButton(
+              DefaultButton(
                 text: "Sign In",
                 onTap: signIn,
               ),

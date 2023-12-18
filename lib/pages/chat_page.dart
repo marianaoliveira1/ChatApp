@@ -1,6 +1,6 @@
-import 'package:chat_messenger/components/chat_dubble.dart';
-import 'package:chat_messenger/components/my_text_filed.dart';
 import 'package:chat_messenger/services/chat/chat_service.dart';
+import 'package:chat_messenger/widgets/chat_dubble.dart';
+import 'package:chat_messenger/widgets/default_text_filed.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,10 @@ class ChatPage extends StatefulWidget {
   final String receiverUserEmail;
   final String receiverUserID;
 
-  const ChatPage({super.key, required this.receiverUserEmail, required this.receiverUserID});
+  const ChatPage(
+      {super.key,
+      required this.receiverUserEmail,
+      required this.receiverUserID});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -22,7 +25,8 @@ class _ChatPageState extends State<ChatPage> {
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
-      await _chatService.sendMessage(widget.receiverUserID, _messageController.text);
+      await _chatService.sendMessage(
+          widget.receiverUserID, _messageController.text);
       _messageController.clear();
     }
   }
@@ -47,7 +51,8 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildMessageList() {
     return StreamBuilder(
-        stream: _chatService.getMessages(widget.receiverUserID, _firebaseAuth.currentUser!.uid),
+        stream: _chatService.getMessages(
+            widget.receiverUserID, _firebaseAuth.currentUser!.uid),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('Error${snapshot.error}');
@@ -58,7 +63,9 @@ class _ChatPageState extends State<ChatPage> {
           }
 
           return ListView(
-            children: snapshot.data!.docs.map((document) => _buildMessageItem(document)).toList(),
+            children: snapshot.data!.docs
+                .map((document) => _buildMessageItem(document))
+                .toList(),
           );
         });
   }
@@ -66,15 +73,23 @@ class _ChatPageState extends State<ChatPage> {
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
-    var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid) ? Alignment.centerRight : Alignment.centerLeft;
+    var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid)
+        ? Alignment.centerRight
+        : Alignment.centerLeft;
 
     return Container(
       alignment: alignment,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: (data['senderId'] == _firebaseAuth.currentUser!.uid) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          mainAxisAlignment: (data['senderId'] == _firebaseAuth.currentUser!.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
+          crossAxisAlignment:
+              (data['senderId'] == _firebaseAuth.currentUser!.uid)
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
+          mainAxisAlignment:
+              (data['senderId'] == _firebaseAuth.currentUser!.uid)
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
           children: [
             Text(data['senderEmail']),
             const SizedBox(
@@ -93,9 +108,13 @@ class _ChatPageState extends State<ChatPage> {
       child: Row(
         children: [
           Expanded(
-            child: MyTextField(controller: _messageController, hintText: 'Enter message', obscureText: false),
+            child: DefaultTextField(
+                controller: _messageController,
+                hintText: 'Enter message',
+                obscureText: false),
           ),
-          IconButton(icon: const Icon(Icons.arrow_upward), onPressed: sendMessage)
+          IconButton(
+              icon: const Icon(Icons.arrow_upward), onPressed: sendMessage)
         ],
       ),
     );
