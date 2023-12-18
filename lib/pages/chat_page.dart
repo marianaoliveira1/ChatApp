@@ -35,6 +35,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(widget.receiverUserEmail),
       ),
@@ -97,15 +98,63 @@ class _ChatPageState extends State<ChatPage> {
                   ? MainAxisAlignment.end
                   : MainAxisAlignment.start,
           children: [
-            Text(
-              data['senderEmail'],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            ChatBubble(
-              message: data['message'],
-            )
+            (data['senderId'] == _firebaseAuth.currentUser!.uid)
+                ? Container(
+                    constraints: BoxConstraints(
+                      maxWidth: 0.6.sw.toDouble(),
+                    ),
+                    padding: EdgeInsets.all(12.0.h),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF4575f1),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // Text(
+                        //   data['senderEmail'],
+                        //   style: TextStyle(color: Colors.white, fontSize: 8.sp),
+                        // ),
+                        // SizedBox(
+                        //   height: 5.h,
+                        // ),
+                        ChatBubble(
+                          message: data['message'],
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                  )
+                : Container(
+                    constraints: BoxConstraints(
+                      maxWidth: 0.6.sw.toDouble(),
+                    ),
+                    padding: EdgeInsets.all(12.0.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // Text(
+                        //   data['senderEmail'],
+                        //   style: TextStyle(color: Colors.black, fontSize: 8.sp),
+                        // ),
+                        // SizedBox(
+                        //   height: 5.h,
+                        // ),
+                        ChatBubble(
+                          message: data['message'],
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
+                  ),
           ],
         ),
       ),
@@ -114,7 +163,7 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildMessageInput() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25.h),
+      padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 15.h),
       child: Row(
         children: [
           Expanded(
