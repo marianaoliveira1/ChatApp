@@ -27,7 +27,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
-          IconButton(onPressed: signOut, icon: const Icon(Icons.logout))
+          IconButton(
+            onPressed: signOut,
+            icon: const Icon(Icons.logout),
+          )
         ],
       ),
       body: _buildUserList(),
@@ -36,19 +39,22 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildUserList() {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('error');
-          }
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text('error');
+        }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('loading');
-          }
-          return ListView(
-            children: snapshot.data!.docs.map<Widget>((doc) => _buildUserListItem(doc)).toList(),
-          );
-        });
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('loading');
+        }
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(doc))
+              .toList(),
+        );
+      },
+    );
   }
 
   Widget _buildUserListItem(DocumentSnapshot document) {
@@ -59,12 +65,14 @@ class _HomePageState extends State<HomePage> {
         title: Text(data['email']),
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ChatPage(
-                        receiverUserEmail: data['email'],
-                        receiverUserID: data['uid'],
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                receiverUserEmail: data['email'],
+                receiverUserID: data['uid'],
+              ),
+            ),
+          );
         },
       );
     } else {
