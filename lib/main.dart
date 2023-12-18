@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(380, 780),
+    return const ScreenUtilInit(
+      designSize: Size(380, 780),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Chat',
         debugShowCheckedModeBanner: false,
         home: AuthGate(),

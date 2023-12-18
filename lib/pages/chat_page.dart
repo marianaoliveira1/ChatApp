@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:chat_messenger/services/chat/chat_service.dart';
 import 'package:chat_messenger/widgets/chat_dubble.dart';
 import 'package:chat_messenger/widgets/default_text_filed.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatPage extends StatefulWidget {
   final String receiverUserEmail;
@@ -24,12 +29,36 @@ class _ChatPageState extends State<ChatPage> {
   final ChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  File? imageFile;
+
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(
           widget.receiverUserID, _messageController.text);
       _messageController.clear();
     }
+  }
+
+  Future getImage() async {
+    ImagePicker picker = ImagePicker();
+
+    await picker.pickImage(source: ImageSource.gallery).then((xFile) {
+      if (xFile != null) {
+        imageFile = File(xFile.path);
+        uploadImage();
+      }
+    });
+  }
+
+  Future uploadImage() async {
+    String fileName = Uuid().v1();
+
+    var ref =
+        FirebaseStorage.instance.ref().child('images').child('$fileName.jpg');
+
+    var uploadTask = await ref.putFile(imageFile!);
+
+    String ImageUrl = await uploadTask.ref.getDownloadURL();
   }
 
   @override
@@ -166,6 +195,10 @@ class _ChatPageState extends State<ChatPage> {
       padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 15.h),
       child: Row(
         children: [
+          IconButton(
+            icon: const Icon(Icons.image_outlined),
+            onPressed: () => getImage(),
+          ),
           Expanded(
             child: DefaultTextField(
                 controller: _messageController,
@@ -173,7 +206,7 @@ class _ChatPageState extends State<ChatPage> {
                 obscureText: false),
           ),
           IconButton(
-            icon: const Icon(Icons.arrow_upward),
+            icon: const Icon(Icons.send_outlined),
             onPressed: sendMessage,
           )
         ],
